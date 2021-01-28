@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berhasil Login Test</title>
+</head>
+
+<body>
+    <%- include('partial/navbar') %>
+        <h1>Form pengajuan peminjaman</h1>
+        <h5>lengkapi form dibawah sebagai proposal pengajuan kepada investor!</h5>
+        <br>
+        <% if (errors) { %>
+            <% errors.forEach( el=> { %>
+                <p>
+                    <%= el %>
+                </p>
+                <% } ) %>
+                    <% } %>
+                        <form action="/borrower" method="POST">
+                            <div class="form-group">
+                                <label for="full_name">Full name: </label><br>
+                                <input type="text" id="full_name" name="full_name" required>
+                                <br>
+                                <label for="phone_number">Phone number:</label><br>
+                                <input type="text" id="phone_number" name="phone_number" required>
+                                <br>
+                                <label for="email">Email:</label><br>
+                                <input type="email" id="email" name="email" required>
+                                <br>
+                            </div>
+                            <div class="form-group">
+                                <label for="selected_education">Pendidikan yang ingin ditempuh:</label><br>
+                                <select id="selected_education" name="selected_education">
+                                    <option selected disabled>--select--</option>
+                                    <option value="sd">SD</option>
+                                    <option value="smp">SMP</option>
+                                    <option value="sma">SMA</option>
+                                    <option value="d3">D3</option>
+                                    <option value="s1">S1</option>
+                                    <option value="s1">Pend. Atlit</option>
+                                    <option value="s1">Pend. Tata boga</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="loan_time">Waktu peminjaman:</label><br>
+                                <input type="radio" name="loan_time" value="6 bulan">
+                                <label for="6bulan">6 bulan</label><br>
+                                <input type="radio" name="loan_time" value="6 - 12bulan">
+                                <label for="6 - 12bulan">6 - 12 bulan</label><br>
+                                <input type="radio" name="loan_time" value="12 - 18 bulan">
+                                <label for="12 - 18 bulan">12 - 18 bulan</label><br>
+                                <input type="radio" name="loan_time" value="24 - 36 bulan">
+                                <label for="24 - 36 bulan">24 - 36 bulan</label><br>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="money_needed">Uang yang dibutuhkan:</label><br>
+                                <input type="text" class="form-control" id="money_needed" name="money_needed"
+                                    placeholder="e.g: 10000000">
+                            </div>
+                            <br>
+                            <label for="speech_box">Tulis detail pendidikan, dan buat speech untuk investor!</label><br>
+                            <textarea id="speech_box" name="speech_box" rows="8" cols="60"></textarea>
+                            <br>
+                            <button type="submit">Save</button>
+                        </form>
+</body>
+
+</html>

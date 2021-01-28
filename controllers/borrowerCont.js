@@ -1,16 +1,13 @@
-const { Borrower } = require('../models')
-const { compare } = require('../helper/bcrypt')
-
+const { Borrower, Investor } = require('../models')
 
 class BorrowersCont {
     static home(req, res) {
         let errors
-
         if (req.query.msg) {
             errors = req.query.msg.split(',')
         }
 
-        res.render('homeborrower', { errors })
+        res.render('formProposal', { errors })
     }
 
     static register(req, res) {
@@ -18,52 +15,59 @@ class BorrowersCont {
             full_name: req.body.full_name,
             phone_number: req.body.phone_number,
             email: req.body.email,
-            password: req.body.password,
+            selected_education: req.body.selected_education,
+            loan_time: req.body.loan_time,
+            money_needed: req.body.money_needed,
+            speech_box: req.body.speech_box,
             createdAt: new Date(),
             updatedAt: new Date()
         }
 
         Borrower.create(newData)
-            .then(data => {
-                res.render('loginborrower')
+            .then(() => {
+                res.redirect('/borrower/list')
             })
             .catch(err => {
                 res.send(err.message)
             })
     }
 
-    static login(req, res) {
-        Borrower.findOne({
+    static dataBorrrower(req, res) {
+        Borrower.findAll()
+            .then((data) => {
+                res.render('loginborrower', { data })
+            })
+            .catch((error) => {
+                res.send(err.message)
+            })
+    }
+
+    static delete(req, res) {
+        Borrower.destroy({
             where: {
-                full_name: req.body.full_name
+                id: +req.params.id
             }
         })
-            .then(user => {
-                let hasilPassword = compare(req.body.password, user.password)
-                //console.log(hasilPassword)
-                if (user && hasilPassword) {
-                    req.session.userId = user.id
-                    //console.log(req.session, "<< ini req session")
-                    res.render('berhasil')
-                } else {
-                    res.send('invalid user name or pass')
-                }
+            .then(() => {
+                res.redirect('/borrower/list')
             })
-            .catch(err => {
-                res.send(err.message)
+            .catch((error) => {
+                res.send(error)
             })
     }
 
-    static getTest(req, res) {
-        res.render('add.ejs')
-    }
-
-    static logout(req, res) {
-        console.log(req.session)
-        req.session.destroy(function (err) {
-            res.redirect('/')
+    static invest(req, res) {
+        Borrower.findByPk(+req.params.id, {
+            include: Investor
         })
+            .then((data) => {
+                res.render('listyangdiinvest', { data })
+            })
+            .catch((error) => {
+                res.send(error.message)
+            })
     }
+
 }
 
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Profile</title>
+</head>
+
+<body>
+    <%- include('partial/navbar') %>
+        <h1>Investors</h1>
+        <table border="3">
+            <tr>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>email</th>
+                <th>Action</th>
+            </tr>
+            <% data.forEach((each)=>{%>
+                <tr>
+                    <td>
+                        <%= each.full_name%>
+                    </td>
+                    <td>
+                        <%= each.phone_number%>
+                    </td>
+                    <td>
+                        <%= each.email%>
+                    </td>
+                    <td> <a href="/investor/edit/<%=each.id%>">edit</a></td>
+                </tr>
+                <%})%>
+        </table>
+
+
+</body>
+
+</html>

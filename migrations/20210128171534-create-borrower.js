@@ -1,6 +1,6 @@
 'use strict';
 module.exports = {
-  up:  (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Borrowers', {
       id: {
         allowNull: false,
@@ -12,12 +12,21 @@ module.exports = {
         type: Sequelize.STRING
       },
       phone_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
       },
-      password: {
+      money_needed: {
+        type: Sequelize.INTEGER
+      },
+      selected_education: {
+        type: Sequelize.STRING
+      },
+      loan_time: {
+        type: Sequelize.STRING
+      },
+      speech_box: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -30,7 +39,7 @@ module.exports = {
       }
     });
   },
-  down:  (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Borrowers');
   }
 };

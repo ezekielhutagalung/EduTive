@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize');
 
-  
-const {hashing} = require('../helper/bcrypt')
+const emailLogin = require('../helpers/nodemailer')
+const { hashing } = require('../helpers/bcrypt')
 
 module.exports = (sequelize, DataTypes) => {
   class Investor extends Model {
@@ -15,23 +15,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Investor.belongsToMany(models.Proposal, {
-        through: models.Command,
-        foreignKey: 'InvestorId'
+      Investor.hasMany(models.Borrower, {
+        foreignKey: 'InvestorId', targetKey: 'id'
       })
     }
   };
   Investor.init({
     full_name: DataTypes.STRING,
-    phone_number: DataTypes.INTEGER,
+    phone_number: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING
-  },{
-       hooks:{
-       beforeCreate(instance,option){
-         instance.password = hashing(instance.password)
-       }
-       },
+  }, {
+    hooks: {
+      beforeCreate(instance, option) {
+        instance.password = hashing(instance.password)
+      },
+      afterCreate(instance, option) {
+        emailLogin(instance.email, "Registrasi Berhasil Edutive-Id", instance.full_name)
+      }
+    },
     sequelize,
     modelName: 'Investor',
   });

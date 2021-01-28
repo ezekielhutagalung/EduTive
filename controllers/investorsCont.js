@@ -1,5 +1,5 @@
-const { Investor } = require('../models')
-const { compare } = require('../helper/bcrypt')
+const { Investor, Borrower } = require('../models')
+const { compare } = require('../helpers/bcrypt')
 
 
 class InvestorsCont {
@@ -24,7 +24,7 @@ class InvestorsCont {
         }
 
         Investor.create(newData)
-            .then(data => {
+            .then(() => {
                 res.render('login')
             })
             .catch(err => {
@@ -64,6 +64,68 @@ class InvestorsCont {
             res.redirect('/')
         })
     }
+
+
+    static showProfile(req, res) {
+        Investor.findAll()
+
+            .then(data => {
+                res.render('showinvestors', { data })
+            })
+            .catch(err => {
+                res.send(err.message)
+            })
+    }
+
+    static showEditGet(req, res) {
+        const getId = +req.params.id
+        console.log(getId, "<<ini id")
+
+        Investor.findByPk(getId)
+            .then(data => {
+                console.log(data, '<< show form')
+                res.render('editprofile', { data })
+            })
+            .catch(err => {
+                res.send(err.message)
+            })
+
+    }
+
+    static EditPost(req, res) {
+        let id = +req.params.id
+        let newBook = {
+            full_name: req.body.full_name,
+            phone_number: req.body.phone_number,
+            email: req.body.email
+        }
+
+        Investor.update(newBook, { where: { id } })
+            .then(data => {
+                res.redirect('/investor/showlist')
+            })
+            .catch(err => {
+                res.send(err.message)
+            })
+    }
+
+    static invest(req, res) {
+        Borrower.findAll({
+            include: Investor,
+            where: {
+                id: +req.params.id
+            }
+        })
+            .then((data) => {
+                res.render('listyangdiinvest', { data })
+            })
+            .catch(err => {
+                res.send(err.message)
+            })
+    }
+
+
+
 }
 
 

@@ -15,7 +15,10 @@ module.exports = {
       full_name: 'Arinda Rahma',
       phone_number: "081234567890",
       email: "arinda@mail.com",
-      password: "arinda123",
+      money_needed: 10000000,
+      selected_education: "SMP",
+      loan_time: "12 bulan",
+      speech_box: "smp kelas 7 di smp 1 jakarta",
       createdAt: new Date(),
       updatedAt: new Date()
     }], {})

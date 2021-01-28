@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>borrowers data</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data penerima pinjaman</title>
 </head>
 
 <body style="background-color: rgb(255, 247, 180);">
-    <h1>Data Peminjam </h1>
+    <h1>Data penerima pinjaman </h1>
     <table border="1">
         <thead>
             <th>No.</th>
@@ -22,7 +19,7 @@
             <th>loan_time</th>
             <th>money_needed</th>
             <th>speech_box</th>
-            <th>Action</th>
+            <th>action</th>
         </thead>
         <% data.forEach((el, idx)=> { %>
             <tbody>
@@ -50,10 +47,7 @@
                 <td>
                     <%= el.speech_box %>
                 </td>
-                <td>
-                    <button><a href="/investor/<%=el.id%>/invest">Invest</a></button>
-                    <button><a href="/borrower/<%=el.id%>/delete">Reject</a></button>
-                </td>
+                <td> <a href="/investor/<%= el.id %>/invest">delete</a></td>
                 <% }) %>
             </tbody>
 

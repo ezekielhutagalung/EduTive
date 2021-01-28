@@ -1,0 +1,31 @@
+<%- include('partial/navbar') %>
+    <h2>Edit profile</h2>
+
+    <body style="background-color: rgb(248, 229, 58);"></body>
+    <br>
+    <form action="/investor/edit/<%= data.id %>" method="POST">
+        <div class="form-group">
+            <label for="fullname">fullname</label>
+            <br>
+            <input type="text" class="form-control" id="fullname" name="fullname" value="<%= data.full_name %>"
+                required>
+            <br>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <br>
+                <input type="text" class="form-control" id="phone_number" name="phone_number"
+                    value="<%= data.phone_number %>" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <br>
+                <input type="text" class="form-control" id="email" name="email" value="<%= data.email %>" required>
+            </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-danger" onclick="history.back()">Cancel</button>
+    </form>
+
+    </html>
