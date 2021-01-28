@@ -27,7 +27,7 @@ class Controllers{
 
         Investor.create(newData)
          .then( data =>{
-             res.redirect('/')
+             res.render('login')
          })
          .catch(err=>{
              res.send(err.message)
@@ -42,9 +42,10 @@ class Controllers{
         })
         .then(user=>{
             let hasilPassword = compare(req.body.password, user.password)
-            console.log(hasilPassword)
+            //console.log(hasilPassword)
             if(user && hasilPassword){
                 req.session.userId = user.id
+                //console.log(req.session, "<< ini req session")
                 res.render('berhasillogintest')
             }else{
                 res.send('invalid user name or pass')
@@ -56,7 +57,14 @@ class Controllers{
     }
 
  static getTest(req,res){
-     res.render('add.js')
+     res.render('add.ejs')
+ }
+
+ static logout(req,res){
+     console.log(req.session)
+     req.session.destroy(function(err){
+         res.redirect('/')
+     })
  }
 }
 
