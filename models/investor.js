@@ -2,6 +2,10 @@
 const {
   Model
 } = require('sequelize');
+
+  
+const {hashing} = require('../helper/bcrypt')
+
 module.exports = (sequelize, DataTypes) => {
   class Investor extends Model {
     /**
@@ -22,7 +26,12 @@ module.exports = (sequelize, DataTypes) => {
     phone_number: DataTypes.INTEGER,
     email: DataTypes.STRING,
     password: DataTypes.STRING
-  }, {
+  },{
+       hooks:{
+       beforeCreate(instance,option){
+         instance.password = hashing(instance.password)
+       }
+       },
     sequelize,
     modelName: 'Investor',
   });
