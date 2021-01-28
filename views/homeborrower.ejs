@@ -13,7 +13,7 @@
 <body style="background-color: rgb(248, 229, 58);"></body>
 <%- include('partial/navbar') %>
     <div>
-        <form action="/investor/login" method="post">
+        <form action="/borrower/login" method="post">
             <label for="full_name">full_name</label>
             <input type="text" name="full_name" id="full_name">
             <label for="password">Password</label>
@@ -33,7 +33,7 @@
                     </p>
                     <% } ) %>
                         <% } %>
-                            <form action="/investor/register" method="post">
+                            <form action="/borrower/register" method="post">
                                 Username:<br>
                                 <input type="text" name="username" placeholder="username">
                                 <br>

@@ -1,29 +1,32 @@
 const express = require('express')
 const router = express.Router()
-const Controller = require('../controllers/controllers')
+const InvestorCont = require('../controllers/investorsCont')
+const BorrowerCont = require('../controllers/borrowerCont')
 
 
-const mid = (req,res,next) =>{
-   
-    if(req.session.userId){
+const mid = (req, res, next) => {
+
+    if (req.session.userId) {
         //console.log(req.session)
         next()
-    }else{
+    } else {
         res.redirect('/')
     }
 }
 
-router.get('/', Controller.home)
 
-router.post('/register', Controller.register)
+//routingan investor
+router.get('/investor', InvestorCont.home)
+router.post('/investor/register', InvestorCont.register)
+router.post('/investor/login', InvestorCont.login)
+router.get('/investor/add', mid, InvestorCont.getTest)
+router.get('/investor/logout', InvestorCont.logout)
 
-router.post('/login', Controller.login )
-
-router.get('/add',mid, Controller.getTest)
-
-router.get('/logout', Controller.logout)
-
-
-
+//routingan borrowers(peminjam)
+router.get('/borrower', BorrowerCont.home)
+router.post('/borrower/register', BorrowerCont.register)
+router.post('/borrower/login', BorrowerCont.login)
+router.get('/borrower/add', mid, BorrowerCont.getTest)
+router.get('/borrower/logout', BorrowerCont.logout)
 
 module.exports = router
