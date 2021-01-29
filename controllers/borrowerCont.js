@@ -25,7 +25,7 @@ class BorrowersCont {
 
         Borrower.create(newData)
             .then(() => {
-                res.redirect('/borrower/list')
+                res.render('thankyou')
             })
             .catch(err => {
                 res.send(err.message)

@@ -28,7 +28,7 @@ router.get('/investor/:id/invest', InvestorCont.invest)
 //routingan borrowers(peminjam)
 router.get('/borrower', BorrowerCont.home)
 router.post('/borrower', BorrowerCont.register)
-router.get('/borrower/list', BorrowerCont.dataBorrrower)
+router.get('/borrower/list', mid, BorrowerCont.dataBorrrower)
 router.get('/borrower/:id/delete', BorrowerCont.delete)
 
 
